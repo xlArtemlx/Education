@@ -1,0 +1,4 @@
+{
+    "port":5000,
+    "mongoUri":"mongodb+srv://artem:starwars9@cluster0.xuydq.mongodb.net/education"
+}
