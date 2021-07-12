@@ -3,7 +3,7 @@ const config = require('config')
 const mongoose = require('mongoose')
 const app = express()
 
-app.use('/boards')
+app.use('/api/auth',require('./routes/user.routes'))
 
 const PORT = config.get('port') || 5000
 
