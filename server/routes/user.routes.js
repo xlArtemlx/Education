@@ -10,19 +10,19 @@ const router = Router()
 router.post('/register', 
 [
 check('email','Некоректный email').isEmail(),
-check('password','Минимальная длинна пароля 6 символов')
+check('password','Минимальная длинна пароля 6 символов').isLength({min:6})
 ],
 async (req,res)=>{
     try {
-        const errors = validationResult(req)
-        if(erroes.isEmpty()){
-            return res.status(400).json({
-                errors:errors.array(),
-                message:'Некорректные данные при регистрации'
-            })
-        }
+        // const errors = validationResult(req)
+        // if(erroes.isEmpty()){
+        //     return res.status(400).json({
+        //         errors:errors.array(),
+        //         message:'Некорректные данные при регистрации'
+        //     })
+        // }
         const {email,password} = req.body
-
+        console.log(email,password)
         const candidate = await User.findOne({email})
         if(candidate){
             return res.status(400).json({message: 'Такой пользователь уже существует'}).isLength({min:6})

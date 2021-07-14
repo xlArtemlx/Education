@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import 'materialize-css'
 import './Register.scss'
+import {useHttp} from '../../hooks/http.hook'
 
 interface Values {
   email: string;
@@ -8,6 +9,8 @@ interface Values {
 }
 
 export const Register = () => {
+  const {loading,error,request}= useHttp()
+
   const [form,setForm] = useState<Values>({
     email: '',
     password: '',
@@ -19,6 +22,16 @@ export const Register = () => {
       [e.target.name]:e.target.value
     })
     e.preventDefault()
+  }
+
+  const reg = async () => {
+    try {
+      const data = await request('/api/auth/register','POST',{...form})
+      console.log(data)
+
+    }catch(e){
+
+    }
   }
 
   return (
@@ -36,7 +49,7 @@ export const Register = () => {
             />
             <label htmlFor="password">Password</label>
             <input id="password" name="password" placeholder="Password"  onChange={changeHandler}/>
-            <button type="submit">Submit</button>
+            <button onClick={reg} disabled={loading} type="submit">Submit</button>
             </div>
         </div>
     </div>
