@@ -2711,6 +2711,11 @@
   dependencies:
     "follow-redirects" "^1.10.0"
 
+"axis@^1.0.0":
+  "integrity" "sha1-lW+ptqGYzJfcUDxPFOFw/65W7Bc="
+  "resolved" "https://registry.npmjs.org/axis/-/axis-1.0.0.tgz"
+  "version" "1.0.0"
+
 "axobject-query@^2.2.0":
   "integrity" "sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA=="
   "resolved" "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"

@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import 'materialize-css'
 import './Register.scss'
 import {useHttp} from '../../hooks/http.hook'
+import { useMessage } from '../../hooks/useMessage';
 
 interface Values {
   email: string;
@@ -9,12 +10,17 @@ interface Values {
 }
 
 export const Register = () => {
-  const {loading,error,request}= useHttp()
-
+  const {loading,error,request,clearError}= useHttp()
+  const message = useMessage()
   const [form,setForm] = useState<Values>({
     email: '',
     password: '',
   })
+
+  useEffect(()=>{
+    message(error)
+    clearError()
+  },[error,message,clearError])
   
   const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -26,8 +32,18 @@ export const Register = () => {
 
   const reg = async () => {
     try {
-      const data = await request('/api/auth/register','POST',{...form})
-      console.log(data)
+      const data:any = await request('/api/auth/register','POST',{...form})
+      message(data.message)
+
+    }catch(e){
+
+    }
+  }
+
+  const login = async () => {
+    try {
+      const data:any = await request('/api/auth/login','POST',{...form})
+      message(data.message)
 
     }catch(e){
 
@@ -49,7 +65,8 @@ export const Register = () => {
             />
             <label htmlFor="password">Password</label>
             <input id="password" name="password" placeholder="Password"  onChange={changeHandler}/>
-            <button onClick={reg} disabled={loading} type="submit">Submit</button>
+            <button onClick={reg} disabled={loading} type="submit">Регистрация</button>
+            <button onClick={login} disabled={loading} type="submit">Войти</button>
             </div>
         </div>
     </div>

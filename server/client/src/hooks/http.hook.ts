@@ -7,32 +7,31 @@ export const useHttp = () => {
 
     const request = useCallback( async(url:string ,method = "GET",body = null,headers = {} ) => {
         setLoading(true)
-      const bod = JSON.stringify({"email":'sddasd@sdssd.ru',"password":'123456'})
         try{
             const response = await axios({
-                method: 'post',
+                method: method,
                 url: url,
                 headers: {
                     'Content-Type': 'application/json',
+                    ...headers
                   },
-                data: bod
+                data: body
               });
             // const data = await response
             // if(!response.ok){
             //     throw new Error(data.message||'Ошибка подключения')
             // }
             setLoading(false)
-            console.log(response)
             return //data
 
         }catch(e){
-            console.log(e)
+            console.log(e.response.data.message)
             setLoading(false)
-            setError(e.message)
+            setError(e.response.data.message)
             throw e
         }
     },[])
 
-    const clearError = () => setError(null)
+    const clearError = useCallback(() => setError(null),[])
     return {loading,request,error,clearError}
 }
