@@ -6,6 +6,7 @@ import {MainActionTypes} from '../types/actions'
 
 const initialState:Main = {
     list:[],
+    board:[],
 }
 
 export const AppReducer = (state = initialState,action:MainActionTypes) =>{

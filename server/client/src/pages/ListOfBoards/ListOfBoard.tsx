@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React,{useCallback, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,8 +9,33 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHttp } from '../../hooks/http.hook';
+import { useMessage } from '../../hooks/useMessage';
 
 export const ListOfBoard = () => {
+  const {loading,error,request,clearError}= useHttp()
+  const message = useMessage()
+
+  useEffect(()=>{
+    message(error)
+    clearError()
+  },[error,message,clearError])
+  
+  useEffect(()=>{
+    getBoard()
+  },[])
+
+  const getBoard = async ():Promise<void> => {
+    try {
+      const data:any = await request('/api/board/board','GET')
+      message(data.message)
+
+    }catch(e){
+
+    }
+  }
+
+
     const useStyles = makeStyles((theme) => ({
       icon: {
         marginRight: theme.spacing(2),
