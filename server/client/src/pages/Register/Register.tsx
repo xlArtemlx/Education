@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import 'materialize-css'
 import './Register.scss'
 import {useHttp} from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/useMessage';
+import { AuthContext } from '../../context/AuthContext';
 
 interface Values {
   email: string;
@@ -11,6 +12,7 @@ interface Values {
 
 export const Register = () => {
   const {loading,error,request,clearError}= useHttp()
+  const auth = useContext(AuthContext)
   const message = useMessage()
   const [form,setForm] = useState<Values>({
     email: '',
@@ -40,25 +42,28 @@ export const Register = () => {
     }
   }
 
-  const login = async () => {
+  const log = async () => {
     try {
       const data:any = await request('/api/auth/login','POST',{...form})
+      if(data){
+        auth.login(data.token,data.userId)
+      }
       message(data.message)
 
     }catch(e){
 
     }
   }
+
   const test = async () => {
     try {
-      const data:any = await request('/api/boards','GET')
+      const data:any = await request('/api/board/board','GET')
       message(data.message)
 
     }catch(e){
 
     }
   } 
-  console.log(loading)
 
   return (
     <div className='row'>
@@ -76,7 +81,7 @@ export const Register = () => {
             <label htmlFor="password">Password</label>
             <input id="password" name="password" placeholder="Password"  onChange={changeHandler}/>
             <button onClick={reg} disabled={loading} type="submit">Регистрация</button>
-            <button onClick={login} disabled={loading} type="submit">Войти</button>
+            <button onClick={log} disabled={loading} type="submit">Войти</button>
             <button onClick={test} disabled={loading} type="submit">test</button>
             </div>
         </div>

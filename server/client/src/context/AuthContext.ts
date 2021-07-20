@@ -1,11 +1,12 @@
 import { createContext } from "react";
 
 function no() {}
+function non(id:string,token:string):void {}
 
 export const AuthContext = createContext({
     token:null,
     userId:null,
-    login:no,
+    login:non,
     logout:no,
-    isAuthenticadet:false
+    isAuth:false
 })

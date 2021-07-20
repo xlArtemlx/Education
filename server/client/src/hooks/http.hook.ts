@@ -16,14 +16,15 @@ export const useHttp = () => {
                     ...headers
                   },
                 data: body
-              });
-            console.log(response)
-            // const data = await response
-            // if(!response.ok){
-            //     throw new Error(data.message||'Ошибка подключения')
-            // }
+              })
+              .catch((e)=>{
+                setLoading(false)
+                setError(e.response.data.message)
+                throw new Error(e.response.data.message||'Ошибка подключения')
+              })
             setLoading(false)
-            return //data
+            const data = response.data
+            return data
 
         }catch(e){
             console.log(e.response.data.message)

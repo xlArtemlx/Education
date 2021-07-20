@@ -1,9 +1,8 @@
 const {Board}  = require("../models/Board");
 
 class BoardService {
- 
   static async get(queryOptions) {
-    const boards = await Board.find(queryOptions).exec();
+    const boards = await Board.findAll().exec();
     return boards;
   }
 

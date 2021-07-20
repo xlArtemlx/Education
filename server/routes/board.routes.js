@@ -1,18 +1,16 @@
 const {Router} = require('express')
 const {_}  = require( "lodash")
-const BoardService  = require( "../service/board");
+const BoardService  = require( "../service/board.js");
 const ListService  = require("../service/list");
 const {Container} =  require ("typedi")
 const CardService = require("../service/card");
+const Board  = require("../models/Board");
 const router = Router()
 
 
-router.get("/boards", async (req, res) => {
-    const boardService = Container.get(BoardService);
-    const boards = await boardService.get().catch(error => {
-      return res.status(500).json({ error });
-    });
-
+router.get("/board", async (req, res) => {
+    // const boardService = Container.get(BoardService);
+    const boards = await Board.find({})
     return res.status(200).json(boards);
 });
 
