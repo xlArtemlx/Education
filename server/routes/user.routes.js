@@ -29,9 +29,11 @@ async (req,res)=>{
 
         const hashedPassword = await bcrypt.hash(password,12)
         const user = new User({email,password: hashedPassword})
-
-        await user.save()
-        res.status(201).json({message:'Новый пользователь создан'})
+        console.log(user)
+        await user.save(()=>{
+            res.status(201).json({message:'Новый пользователь создан'})
+        })
+        
 
     } catch(e){
         res.status(500).json({message:'Ошибка подключения сервера'})

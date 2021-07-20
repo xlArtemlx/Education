@@ -126,10 +126,9 @@ router.patch("/board/:boardId/update-list-order", async (req, res) => {
       destinationIndex,
     } = req.body;
 
-    // pull down all lists for board
+    // вытащить все списки на доску
     const lists = await listService.get({ boardId });
 
-    // // perform reorder
     const [list] = lists.splice(sourceIndex, 1);
     lists.splice(destinationIndex, 0, list)
 
@@ -137,7 +136,7 @@ router.patch("/board/:boardId/update-list-order", async (req, res) => {
       return { id: l._id, sortOrder: index + 1 };
     });
 
-    //TODO: Multi update implementation rather than separate queries
+    //TODO: Реализация нескольких обновлений, а не отдельные запросы
     orderedLists.forEach(async (l) => {
       await listService.update(l.id, {
         sortOrder: l.sortOrder,

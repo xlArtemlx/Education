@@ -17,6 +17,7 @@ export const useHttp = () => {
                   },
                 data: body
               });
+            console.log(response)
             // const data = await response
             // if(!response.ok){
             //     throw new Error(data.message||'Ошибка подключения')

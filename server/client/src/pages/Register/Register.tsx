@@ -49,6 +49,16 @@ export const Register = () => {
 
     }
   }
+  const test = async () => {
+    try {
+      const data:any = await request('/api/boards','GET')
+      message(data.message)
+
+    }catch(e){
+
+    }
+  } 
+  console.log(loading)
 
   return (
     <div className='row'>
@@ -67,6 +77,7 @@ export const Register = () => {
             <input id="password" name="password" placeholder="Password"  onChange={changeHandler}/>
             <button onClick={reg} disabled={loading} type="submit">Регистрация</button>
             <button onClick={login} disabled={loading} type="submit">Войти</button>
+            <button onClick={test} disabled={loading} type="submit">test</button>
             </div>
         </div>
     </div>

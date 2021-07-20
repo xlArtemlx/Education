@@ -119,7 +119,7 @@ router.patch("/cards/update-order", async (req, res) => {
       return { id: c._id, sortOrder: index + 1 };
     });
 
-    //TODO: More efficient multi update
+    //TODO: Более эффективное мультиобновление
     if (!!orderedDstCards) {
       orderedDstCards.forEach(async (c) => {
         await cardService.update(c.id, {
@@ -129,7 +129,7 @@ router.patch("/cards/update-order", async (req, res) => {
       });
     }
 
-    //TODO: More efficient multi update
+    //TODO: Более эффективное мультиобновление
     orderedSrcCards.forEach(async (c) => {
       await cardService.update(c.id, {
         sortOrder: c.sortOrder,
